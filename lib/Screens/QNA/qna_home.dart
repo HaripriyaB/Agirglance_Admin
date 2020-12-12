@@ -18,15 +18,22 @@ class _QNAHomeState extends State<QNAHome> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("qna")
-              .orderBy('askedOn')
+              .orderBy("askedOn")
               .snapshots(),
           builder: (context, snapshot) {
-            return !snapshot.hasData
+            print(snapshot.error);
+            print(snapshot.connectionState);
+            print(snapshot.data);
+            return (!snapshot.hasData)
                 ? Text("Loading")
                 : ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot q = snapshot.data.documents[index];
+                      print(q['categoryType']);
+                      print(q['question']);
+                      print(q['questionDesc']);
+                      print(q['postedByName']);
                       return QnaCard(
                         category: q['categoryType'],
                         question: q['question'],
