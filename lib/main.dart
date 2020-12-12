@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'Screens/Authentication/signIn.dart';
 import 'Services/authentication_service.dart';
 import 'Screens/home.dart';
 
@@ -47,6 +48,6 @@ class AuthenticationWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       return Home();
     }
-    return Home();
+    return SignIn();
   }
 }
