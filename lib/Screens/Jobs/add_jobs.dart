@@ -37,7 +37,7 @@ class _AddJobsState extends State<AddJobs> {
 
   Future<void> _uploadJob() async {
     await FirebaseFirestore.instance.collection("jobs").add({
-      'isApprovedByAdmin': false,
+      'isApprovedByAdmin': true,
       'organizationName': _orgName,
       'jobSubject': _jobSubject,
       'jobSelectionProcedure': _jobDesc,
@@ -46,7 +46,7 @@ class _AddJobsState extends State<AddJobs> {
       'jobType': _jobType,
       'qualificationsRequired': _jobSkills,
       'postedBy': widget.uid,
-      'postedByName': widget.uName,
+      'postedByName': 'Admin',
       'organizationLink': _orgLink,
       'postedAt': DateTime.now()
     });
