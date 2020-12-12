@@ -62,12 +62,12 @@ class _SignInState extends State<SignIn> {
                     response = await context
                         .read<AuthenticationService>()
                         .signIn(emailController.text, passwordController.text);
-                    if (response != "Signed In") {
+                    if (response != "true") {
                       setState(() {
                         opacity = 0.0;
                       });
                       Fluttertoast.showToast(
-                          msg: response,
+                          msg: "User is not Admin!",
                           toastLength: Toast.LENGTH_LONG,
                           gravity: ToastGravity.BOTTOM);
                     }

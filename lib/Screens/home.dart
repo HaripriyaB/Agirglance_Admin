@@ -9,11 +9,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:Text("Admin Panel"),
-        centerTitle:true
-      ),
-      
+      appBar: AppBar(title: Text("Admin Panel"), centerTitle: true),
+      body: Container(),
     );
   }
 }
