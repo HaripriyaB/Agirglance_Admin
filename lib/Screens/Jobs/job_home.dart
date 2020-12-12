@@ -28,7 +28,6 @@ class _JobHomeState extends State<JobHome> {
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot jobs = snapshot.data.documents[index];
-                      if (jobs['isApprovedByAdmin']) {
                         return JobCard(
                           jobDesc: jobs['jobSelectionProcedure'],
                           jobPosts: jobs['noOfPosts'],
@@ -42,8 +41,6 @@ class _JobHomeState extends State<JobHome> {
                           index: index,
                           jobId: jobs.id,
                         );
-                      }
-                      return null;
                     },
                   );
           },
