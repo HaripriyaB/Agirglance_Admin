@@ -13,53 +13,63 @@ class _HomeState extends State<Home> {
   int screen = 0;
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          title: Text("Admin Panel"),
+          title: Text(
+            "Admin Panel",
+            style: TextStyle(fontSize: 30.0),
+          ),
           centerTitle: true,
           actions: [
             Padding(
-              padding: EdgeInsets.only(top: 15.0, right: 15),
+              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
               child: GestureDetector(
                 onTap: () {
                   setState(() {
                     screen = 0;
                   });
                 },
-                child: Text("Test"),
+                child: Text(
+                  "Test",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 15.0, right: 15),
+              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
               child: GestureDetector(
                 onTap: () {
                   setState(() {
                     screen = 1;
                   });
                 },
-                child: Text("Material"),
+                child: Text("Material",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 15.0, right: 15),
+              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
               child: GestureDetector(
                 onTap: () {
                   setState(() {
                     screen = 2;
                   });
                 },
-                child: Text("QNA"),
+                child:
+                    Text("QNA", style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 15.0, right: 15),
+              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
               child: GestureDetector(
                 onTap: () {
                   setState(() {
                     screen = 3;
                   });
                 },
-                child: Text("Jobs"),
+                child:
+                    Text("Jobs", style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             )
           ],
