@@ -1,6 +1,6 @@
+import 'package:agriglance_admin/Constants/job_card.dart';
+import 'package:agriglance_admin/Screens/Jobs/add_jobs.dart';
 import 'package:flutter/material.dart';
-import 'package:agriglance/Screens/Jobs/add_jobs.dart';
-import 'package:agriglance/constants/job_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
