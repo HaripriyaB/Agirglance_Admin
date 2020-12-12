@@ -30,10 +30,6 @@ class _QNAHomeState extends State<QNAHome> {
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot q = snapshot.data.documents[index];
-                      print(q['categoryType']);
-                      print(q['question']);
-                      print(q['questionDesc']);
-                      print(q['postedByName']);
                       return QnaCard(
                         category: q['categoryType'],
                         question: q['question'],
