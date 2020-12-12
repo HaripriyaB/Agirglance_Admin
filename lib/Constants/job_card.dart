@@ -14,6 +14,7 @@ class JobCard extends StatefulWidget {
   final String postedByName;
   final int index;
   final String jobId;
+  final bool isApprovedByAdmin;
 
   JobCard(
       {this.jobDesc,
@@ -26,7 +27,8 @@ class JobCard extends StatefulWidget {
       this.salary,
       this.postedByName,
       this.index,
-      this.jobId});
+      this.jobId,
+      this.isApprovedByAdmin});
 
   @override
   _JobCardState createState() => _JobCardState();
@@ -39,6 +41,7 @@ class _JobCardState extends State<JobCard> {
     super.initState();
     countDocuments();
   }
+
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
@@ -76,7 +79,7 @@ class _JobCardState extends State<JobCard> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
-                  "Salary: " + widget.salary,
+                  "Salary: Rs." + widget.salary,
                   style: TextStyle(fontSize: 18.0),
                 ),
                 (widget.postedByName != null)
