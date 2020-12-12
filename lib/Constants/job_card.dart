@@ -91,7 +91,19 @@ class _JobCardState extends State<JobCard> {
                         "Posted By : Anonymous",
                         style: TextStyle(fontSize: 16.0),
                       ),
-                Text("${count.toString()} applicants")
+                (widget.isApprovedByAdmin)
+                    ? Text("${count.toString()} applicants")
+                    : RaisedButton(
+                        onPressed: () async {
+                          await FirebaseFirestore.instance
+                              .collection("jobs")
+                              .doc(widget.jobId)
+                              .update({
+                            'isApprovedByAdmin': true,
+                          });
+                        },
+                        child: Text("Approve"),
+                      )
               ],
             ),
           ),
