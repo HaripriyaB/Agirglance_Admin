@@ -1,4 +1,4 @@
-import 'package:agriglance/Screens/Qna/qna_discussion.dart';
+import 'package:agriglance_admin/Screens/QNA/qna_discussion.dart';
 import 'package:flutter/material.dart';
 
 class QnaCard extends StatefulWidget {
