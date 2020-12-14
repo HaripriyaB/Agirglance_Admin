@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -231,9 +228,7 @@ class _JobDetailsState extends State<JobDetails> {
                 splashColor: Colors.yellow,
                 color: Colors.blue,
                 onPressed: () {
-                  // setState(() {
                   selectCV();
-                  // });
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -317,7 +312,7 @@ class _JobDetailsState extends State<JobDetails> {
         ));
   }
 
-  Future selectCV({@required Function(File file) onSelected}) async {
+  Future selectCV() async {
     var random = new Random();
     for (var i = 0; i < 20; i++) {
       print(random.nextInt(100));
