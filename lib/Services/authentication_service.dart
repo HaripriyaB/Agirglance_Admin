@@ -43,9 +43,9 @@ class AuthenticationService {
           currentUser.email,
           currentUser.isAdmin,
           currentUser.dob,
-          currentUser.qualification,
+          (currentUser.points == null ? 0 : currentUser.points) + addPoints,
           currentUser.university,
-          (currentUser.points==null ? 0:currentUser.points) + addPoints);
+          currentUser.qualification);
       await _firestoreService.createOrUpdateUser(_currentUser);
       return "true";
     } on FirebaseException catch (e) {
