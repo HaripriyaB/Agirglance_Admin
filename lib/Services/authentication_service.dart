@@ -4,7 +4,6 @@ import '../Models/user_model.dart';
 import './firestore_service.dart';
 
 class AuthenticationService {
-  final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _firebaseAuth;
   final FirestoreService _firestoreService = FirestoreService();
   UserModel _currentUser;
@@ -27,7 +26,7 @@ class AuthenticationService {
   }
 
   Future<String> signOut() async {
-    await _firebaseAuth.signOut().then((_) => googleSignIn.signOut());
+    await _firebaseAuth.signOut();
   }
 
   Future _populateCurrentUser(User firebaseUser) async {

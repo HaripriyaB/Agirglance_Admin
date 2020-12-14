@@ -1,11 +1,15 @@
+import 'dart:convert';
+import 'dart:html' as html;
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class JobDetails extends StatefulWidget {
   final String jobType;
@@ -38,19 +42,18 @@ class JobDetails extends StatefulWidget {
 class _JobDetailsState extends State<JobDetails> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String _pdfUrl;
-  FilePickerResult _filePickerResult;
   String absolutePath = "";
   String fileName = "";
-  String fileUrl = "";
-  File file;
+  var file;
   bool showUploadButton = true;
 
   Future _uploadFileCV() async {
-    if (_filePickerResult != null) {
+    if (file != null) {
       Reference storageReference = FirebaseStorage.instance
           .ref()
           .child("job_applications/${widget.jobId}/applicants/" + fileName);
-      UploadTask uploadTask = storageReference.putFile(file);
+      UploadTask uploadTask = storageReference.putBlob(file);
+
       uploadTask.whenComplete(() async {
         try {
           loadProgress();
@@ -64,8 +67,6 @@ class _JobDetailsState extends State<JobDetails> {
                   .collection("applicants")
                   .doc(FirebaseAuth.instance.currentUser.uid)
                   .set({
-                // .collection("applicationDetails")
-                // .add({
                 'cvUrl': _pdfUrl,
                 'cvFileName': fileName,
                 'appliedBy': FirebaseAuth.instance.currentUser.uid,
@@ -83,8 +84,7 @@ class _JobDetailsState extends State<JobDetails> {
   }
 
   void showMessage(String message, [MaterialColor color = Colors.red]) {
-    _scaffoldKey.currentState.showSnackBar(
-        new SnackBar(backgroundColor: color, content: new Text(message)));
+    Fluttertoast.showToast(msg: message);
   }
 
   bool visible = false;
@@ -231,9 +231,9 @@ class _JobDetailsState extends State<JobDetails> {
                 splashColor: Colors.yellow,
                 color: Colors.blue,
                 onPressed: () {
-                  setState(() {
-                    selectCV();
-                  });
+                  // setState(() {
+                  selectCV();
+                  // });
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -317,26 +317,26 @@ class _JobDetailsState extends State<JobDetails> {
         ));
   }
 
-  Future selectCV() async {
+  Future selectCV({@required Function(File file) onSelected}) async {
     var random = new Random();
     for (var i = 0; i < 20; i++) {
       print(random.nextInt(100));
       fileName += random.nextInt(100).toString();
     }
-    _filePickerResult = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowMultiple: false,
-        allowedExtensions: ['pdf'],
-        allowCompression: true);
-    if (_filePickerResult != null) {
-      setState(() {
-        file = File(_filePickerResult.files.single.path);
-        List<String> p = file.path.split("/").toList();
-        absolutePath = file.path.split("/")[p.length - 1];
-        fileName += '$absolutePath';
+    html.InputElement uploadInput = html.FileUploadInputElement();
+    uploadInput.click();
+
+    uploadInput.onChange.listen((e) {
+      final userFile = uploadInput.files.first;
+      final reader = html.FileReader();
+      reader.readAsDataUrl(userFile);
+      reader.onLoadEnd.listen((event) {
+        setState(() {
+          file = userFile;
+          absolutePath = userFile.name;
+          fileName += absolutePath;
+        });
       });
-    } else {
-      showMessage("No file Selected!");
-    }
+    });
   }
 }
