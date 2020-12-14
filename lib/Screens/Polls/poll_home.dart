@@ -1,5 +1,5 @@
-import 'package:agriglance/Screens/Polls/add_polls.dart';
-import 'package:agriglance/constants/poll_card.dart';
+import 'package:agriglance_admin/Constants/poll_card.dart';
+import 'package:agriglance_admin/Screens/Polls/add_polls.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

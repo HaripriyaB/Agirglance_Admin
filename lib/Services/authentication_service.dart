@@ -34,4 +34,22 @@ class AuthenticationService {
       _currentUser = await _firestoreService.getUser(firebaseUser.uid);
     }
   }
+
+  Future<String> addPoints(String uid, int addPoints) async {
+    try {
+      _currentUser = UserModel(
+          uid,
+          _currentUser.fullName,
+          currentUser.email,
+          currentUser.isAdmin,
+          currentUser.dob,
+          currentUser.qualification,
+          currentUser.university,
+          (currentUser.points==null ? 0:currentUser.points) + addPoints);
+      await _firestoreService.createOrUpdateUser(_currentUser);
+      return "true";
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+  }
 }

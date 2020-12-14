@@ -1,4 +1,4 @@
-import 'package:agriglance/Screens/Polls/poll_results.dart';
+import 'package:agriglance_admin/Screens/Polls/poll_result.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

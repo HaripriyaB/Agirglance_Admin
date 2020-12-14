@@ -1,4 +1,4 @@
-import 'package:agriglance/Screens/Polls/poll_vote.dart';
+import 'package:agriglance_admin/Screens/Polls/poll_vote.dart';
 import 'package:flutter/material.dart';
 
 class PollCard extends StatefulWidget {
