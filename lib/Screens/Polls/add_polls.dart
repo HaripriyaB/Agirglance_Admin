@@ -43,10 +43,6 @@ class _AddPollState extends State<AddPoll> {
   }
 
   Future<void> _createPoll() async {
-    await context
-        .read<AuthenticationService>()
-        .addPoints(auth.currentUser.uid, 5)
-        .then((value) => print("**********************$value****************"));
     await FirebaseFirestore.instance.collection("polls").add({
       'isApprovedByAdmin': true,
       'voters': [],
@@ -63,6 +59,10 @@ class _AddPollState extends State<AddPoll> {
       'postedBy': auth.currentUser.uid,
       'createdOn': DateTime.now()
     });
+    await context
+        .read<AuthenticationService>()
+        .addPoints(auth.currentUser.uid, 5)
+        .then((value) => print("**********************$value****************"));
   }
 
   @override
