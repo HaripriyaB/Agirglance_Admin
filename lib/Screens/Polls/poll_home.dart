@@ -11,6 +11,7 @@ class PollHome extends StatefulWidget {
 
 class _PollHomeState extends State<PollHome> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +21,10 @@ class _PollHomeState extends State<PollHome> {
       ),
       body: Container(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("polls").orderBy('createdOn').snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection("polls")
+              .orderBy('createdOn')
+              .snapshots(),
           builder: (context, snapshot) {
             return !snapshot.hasData
                 ? Text("Loading")
@@ -28,26 +32,23 @@ class _PollHomeState extends State<PollHome> {
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot p = snapshot.data.documents[index];
-                      if (p['isApprovedByAdmin']) {
-                        return PollCard(
-                          voters:p['voters'],
-                          question: p['question'],
-                          option1: p['option1'],
-                          option2: p['option2'],
-                          option3: p['option3'],
-                          option4: p['option4'],
-                          totalVotesOnOption1: p['totalVotesOnOption1'],
-                          totalVotesOnOption2: p['totalVotesOnOption2'],
-                          totalVotesOnOption3: p['totalVotesOnOption3'],
-                          totalVotesOnOption4: p['totalVotesOnOption4'],
-                          postedByName: p['postedByName'],
-                          postedBy : p['postedBy'],
-                          approved : p['isApprovedByAdmin'],
-                          index: index,
-                          pollID: p.id,
-                        );
-                      }
-                      return null;
+                      return PollCard(
+                        voters: p['voters'],
+                        question: p['question'],
+                        option1: p['option1'],
+                        option2: p['option2'],
+                        option3: p['option3'],
+                        option4: p['option4'],
+                        totalVotesOnOption1: p['totalVotesOnOption1'],
+                        totalVotesOnOption2: p['totalVotesOnOption2'],
+                        totalVotesOnOption3: p['totalVotesOnOption3'],
+                        totalVotesOnOption4: p['totalVotesOnOption4'],
+                        postedByName: p['postedByName'],
+                        postedBy: p['postedBy'],
+                        approved: p['isApprovedByAdmin'],
+                        index: index,
+                        pollID: p.id,
+                      );
                     },
                   );
           },

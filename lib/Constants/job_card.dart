@@ -1,6 +1,8 @@
 import 'package:agriglance_admin/Screens/Jobs/job_details.dart';
+import 'package:agriglance_admin/Services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class JobCard extends StatefulWidget {
   final String jobType;
@@ -12,6 +14,7 @@ class JobCard extends StatefulWidget {
   final String salary;
   final String orgLink;
   final String postedByName;
+  final String postedBy;
   final int index;
   final String jobId;
   final bool isApprovedByAdmin;
@@ -26,6 +29,7 @@ class JobCard extends StatefulWidget {
       this.orgName,
       this.salary,
       this.postedByName,
+      this.postedBy,
       this.index,
       this.jobId,
       this.isApprovedByAdmin});
@@ -36,6 +40,7 @@ class JobCard extends StatefulWidget {
 
 class _JobCardState extends State<JobCard> {
   int count = 0;
+
   @override
   void initState() {
     super.initState();
@@ -101,6 +106,11 @@ class _JobCardState extends State<JobCard> {
                               .update({
                             'isApprovedByAdmin': true,
                           });
+                          context
+                              .read<AuthenticationService>()
+                              .addPoints(widget.postedBy, 5)
+                              .then((value) => print(
+                                  "**********************$value****************"));
                         },
                         child: Text("Approve"),
                       )

@@ -1,5 +1,8 @@
 import 'package:agriglance_admin/Screens/Polls/poll_vote.dart';
+import 'package:agriglance_admin/Services/authentication_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PollCard extends StatefulWidget {
   final String question;
@@ -95,7 +98,23 @@ class _PollCardState extends State<PollCard> {
                               ? "Approved by Admin"
                               : "Waiting for approval"),
                           style: TextStyle(fontSize: 8.0),
-                        )
+                        ),
+                        if(!widget.approved)
+                          RaisedButton(
+                            onPressed: () async {
+                              await FirebaseFirestore.instance
+                                  .collection("polls")
+                                  .doc(widget.pollID)
+                                  .update({
+                                'isApprovedByAdmin': true,
+                              });
+                              await context
+                                  .read<AuthenticationService>()
+                                  .addPoints(widget.postedBy, 5)
+                                  .then((value) => print("**********************$value****************"));
+                            },
+                            child: Text("Approve"),
+                          )
                       ],
                     )
                   ],

@@ -37,16 +37,17 @@ class AuthenticationService {
 
   Future<String> addPoints(String uid, int addPoints) async {
     try {
-      _currentUser = UserModel(
+      UserModel updateUser = await _firestoreService.getUser(uid);
+      updateUser = UserModel(
           uid,
-          _currentUser.fullName,
-          currentUser.email,
-          currentUser.isAdmin,
-          currentUser.dob,
-          (currentUser.points == null ? 0 : currentUser.points) + addPoints,
-          currentUser.university,
-          currentUser.qualification);
-      await _firestoreService.createOrUpdateUser(_currentUser);
+          updateUser.fullName,
+          updateUser.email,
+          updateUser.isAdmin,
+          updateUser.dob,
+          (updateUser.points == null ? 0 : updateUser.points) + addPoints,
+          updateUser.university,
+          updateUser.qualification);
+      await _firestoreService.createOrUpdateUser(updateUser);
       return "true";
     } on FirebaseException catch (e) {
       return e.message;

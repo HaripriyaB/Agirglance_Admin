@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
+import 'add_study_material.dart';
+
 class StudyMaterialsHome extends StatefulWidget {
   @override
   _StudyMaterialsHomeState createState() => _StudyMaterialsHomeState();
@@ -21,6 +23,17 @@ class _StudyMaterialsHomeState extends State<StudyMaterialsHome> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Study Materials"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddStudyMaterial(
+                      uid: auth.currentUser.uid,
+                      uName: auth.currentUser.displayName)));
+        },
+        child: Icon(Icons.add),
       ),
       body: Container(
         child: StreamBuilder(
@@ -45,6 +58,7 @@ class _StudyMaterialsHomeState extends State<StudyMaterialsHome> {
                           description: papers['description'],
                           pdfUrl: papers['pdfUrl'],
                           postedByName: papers['postedByName'],
+                          postedBy : papers['postedBy'],
                           fileName: papers['fileName'],
                           approved: papers['isApprovedByAdmin'],
                           id: papers.id,

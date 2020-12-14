@@ -38,6 +38,7 @@ class _JobHomeState extends State<JobHome> {
                           orgName: jobs['organizationName'],
                           salary: jobs['jobSalary'],
                           postedByName: jobs['postedByName'],
+                          postedBy: jobs['postedBy'],
                           isApprovedByAdmin: jobs['isApprovedByAdmin'],
                           index: index,
                           jobId: jobs.id,

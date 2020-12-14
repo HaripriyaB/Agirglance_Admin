@@ -1,6 +1,8 @@
+import 'package:agriglance_admin/Services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StudyMaterialCard extends StatefulWidget {
   String type;
@@ -10,6 +12,7 @@ class StudyMaterialCard extends StatefulWidget {
   String pdfUrl;
   String fileName;
   String postedByName;
+  String postedBy;
   bool approved;
   int index;
   String id;
@@ -22,8 +25,10 @@ class StudyMaterialCard extends StatefulWidget {
       this.pdfUrl,
       this.fileName,
       this.postedByName,
+      this.postedBy,
       this.approved,
-      this.index, this.id});
+      this.index,
+      this.id});
 
   @override
   _StudyMaterialCardState createState() => _StudyMaterialCardState();
@@ -89,18 +94,23 @@ class _StudyMaterialCardState extends State<StudyMaterialCard> {
                         : "Waiting for approval"),
                     style: TextStyle(fontSize: 8.0),
                   ),
-                  if(!widget.approved)
-                 RaisedButton(
-                    onPressed: () async {
-                      await FirebaseFirestore.instance
-                          .collection("study_materials")
-                          .doc(widget.id)
-                          .update({
-                        'isApprovedByAdmin': true,
-                      });
-                    },
-                    child: Text("Approve"),
-                  )
+                  if (!widget.approved)
+                    RaisedButton(
+                      onPressed: () async {
+                        await FirebaseFirestore.instance
+                            .collection("study_materials")
+                            .doc(widget.id)
+                            .update({
+                          'isApprovedByAdmin': true,
+                        });
+                        await context
+                            .read<AuthenticationService>()
+                            .addPoints(widget.postedBy, 5)
+                            .then((value) => print(
+                                "**********************$value****************"));
+                      },
+                      child: Text("Approve"),
+                    )
                 ],
               ),
             ],
