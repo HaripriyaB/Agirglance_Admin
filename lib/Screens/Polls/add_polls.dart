@@ -48,7 +48,7 @@ class _AddPollState extends State<AddPoll> {
         .addPoints(auth.currentUser.uid, 5)
         .then((value) => print("**********************$value****************"));
     await FirebaseFirestore.instance.collection("polls").add({
-      'isApprovedByAdmin': false,
+      'isApprovedByAdmin': true,
       'voters': [],
       'question': _question,
       'option1': _option1,
@@ -59,7 +59,7 @@ class _AddPollState extends State<AddPoll> {
       'totalVotesOnOption3': 0,
       'option4': _option4,
       'totalVotesOnOption4': 0,
-      'postedByName': auth.currentUser.displayName,
+      'postedByName': 'Admin',
       'postedBy': auth.currentUser.uid,
       'createdOn': DateTime.now()
     });
