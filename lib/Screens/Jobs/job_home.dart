@@ -23,7 +23,7 @@ class _JobHomeState extends State<JobHome> {
               .snapshots(),
           builder: (context, snapshot) {
             return !snapshot.hasData
-                ? Text("Loading")
+                ? Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {

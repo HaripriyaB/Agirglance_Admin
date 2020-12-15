@@ -85,7 +85,7 @@ class _VideosHomeState extends State<VideosHome> {
                                   fontStyle: FontStyle.normal, fontSize: 20.0),
                             ),
                             player,
-                            if(!videos['isApprovedByAdmin'])
+                            if (!videos['isApprovedByAdmin'])
                               RaisedButton(
                                 onPressed: () async {
                                   await FirebaseFirestore.instance
@@ -97,7 +97,8 @@ class _VideosHomeState extends State<VideosHome> {
                                   await context
                                       .read<AuthenticationService>()
                                       .addPoints(videos['postedBy'], 5)
-                                      .then((value) => print("**********************$value****************"));
+                                      .then((value) => print(
+                                          "**********************$value****************"));
                                 },
                                 child: Text("Approve"),
                               )

@@ -26,7 +26,6 @@ class _AddStudyMaterialState extends State<AddStudyMaterial> {
   String _description;
   String _pdfUrl;
   String _subject = "Choose Subject";
-  FilePickerResult _filePickerResult;
   String absolutePath = "";
   String fileName = "";
   String fileUrl = "";
@@ -57,10 +56,6 @@ class _AddStudyMaterialState extends State<AddStudyMaterial> {
   }
 
   Future<void> _uploadStudyMaterial() async {
-    // context
-    //     .read<AuthenticationService>()
-    //     .addPoints(widget.uid, 5)
-    //     .then((value) => print("**********************$value****************"));
     await FirebaseFirestore.instance.collection("study_materials").add({
       'isApprovedByAdmin': false,
       'type': dropdownValue,
