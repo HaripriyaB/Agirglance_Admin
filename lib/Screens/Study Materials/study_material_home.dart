@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -58,7 +59,7 @@ class _StudyMaterialsHomeState extends State<StudyMaterialsHome> {
                           description: papers['description'],
                           pdfUrl: papers['pdfUrl'],
                           postedByName: papers['postedByName'],
-                          postedBy : papers['postedBy'],
+                          postedBy: papers['postedBy'],
                           fileName: papers['fileName'],
                           approved: papers['isApprovedByAdmin'],
                           id: papers.id,
@@ -73,6 +74,7 @@ class _StudyMaterialsHomeState extends State<StudyMaterialsHome> {
     );
   }
 
-  void _launchURL(url) async =>
-      await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+  void _launchURL(url) async => await canLaunch(url)
+      ? await launch(url)
+      : Fluttertoast.showToast(msg: 'Could not launch $url');
 }
