@@ -102,6 +102,7 @@ class _PollVoteState extends State<PollVote> {
               });
             },
           ),
+          SizedBox(height: 15.0),
           Center(
             child: OutlineButton(
               shape: RoundedRectangleBorder(
@@ -199,6 +200,7 @@ class _PollVoteState extends State<PollVote> {
               ),
             ),
           ),
+          SizedBox(height: 15.0),
           Center(
             child: OutlineButton(
               shape: RoundedRectangleBorder(
