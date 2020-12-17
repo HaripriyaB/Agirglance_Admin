@@ -136,11 +136,26 @@ class _UserCardState extends State<UserCard> {
                           .collection("users")
                           .doc(widget.uid)
                           .update({
-                            'isAdmin': true,
-                          });
+                        'isAdmin': true,
+                      });
                     },
                     child: Text(
                       "Make Admin",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  RaisedButton(
+                    color: Colors.yellowAccent,
+                    onPressed: () async {
+                      await FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(widget.uid)
+                          .update({
+                        'isAdmin': false,
+                      });
+                    },
+                    child: Text(
+                      "Remove As Admin",
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
