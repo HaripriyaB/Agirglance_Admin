@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserCard extends StatefulWidget {
@@ -130,7 +131,14 @@ class _UserCardState extends State<UserCard> {
                 children: [
                   RaisedButton(
                     color: Colors.green,
-                    onPressed: () => print("Tapped"),
+                    onPressed: () async {
+                      await FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(widget.uid)
+                          .update({
+                            'isAdmin': true,
+                          });
+                    },
                     child: Text(
                       "Make Admin",
                       style: TextStyle(color: Colors.white),
