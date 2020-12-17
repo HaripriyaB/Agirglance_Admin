@@ -35,6 +35,7 @@ class NewsCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(deviceWidth / 25),
       child: Card(
+        elevation: 3.0,
         shape: RoundedRectangleBorder(
           side: BorderSide(color: Color(0xFF50E096), width: 2.0),
           borderRadius: BorderRadius.circular(15.0),
@@ -66,30 +67,77 @@ class NewsCard extends StatelessWidget {
                 ],
               ),
               Text(
-                "$newsTitle",
+                "$newsTitle".toUpperCase(),
                 style: GoogleFonts.oswald(
-                    fontWeight: FontWeight.w500, fontSize: 20.0),
+                    fontWeight: FontWeight.w500, fontSize: 30.0),
               ),
               Image.network(
                 newsFile,
                 height: deviceHeight / 2,
                 width: deviceWidth,
               ),
-              Text(
-                'Description: $newsDescription',
+              RichText(
+                text: TextSpan(
+                    text: "Description: ",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Colors.black),
+                    children: [
+                      TextSpan(
+                          text: "$newsDescription",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w200,
+                              fontSize: 14.0))
+                    ]),
               ),
+              // Text(
+              //   'Description: $newsDescription',
+              // ),
               GestureDetector(
                 onTap: () {
                   _launchURL(newsLink);
                 },
-                child: Container(
-                  child: Text('Go To News', style: linkStyle),
-                ),
+                child: Text('Click here', style: TextStyle(color: Colors.blue)),
               ),
-              Text("${DateFormat('yMMMMd').format(DateTime.parse(newsDate))}"),
+              Text(
+                "${DateFormat('yMMMMd').format(DateTime.parse(newsDate))}",
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
               (newsPostedBy != null && newsPostedBy != "")
-                  ? Text("Posted By: $newsPostedBy")
-                  : Text("Posted By: Anonymous"),
+                  ? RichText(
+                      text: TextSpan(
+                          text: "Posted By: ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                              color: Colors.black),
+                          children: [
+                            TextSpan(
+                                text: "$newsPostedBy",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                    fontSize: 14.0))
+                          ]),
+                    )
+                  : RichText(
+                      text: TextSpan(
+                          text: "Posted By: ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                              color: Colors.black),
+                          children: [
+                            TextSpan(
+                                text: "Anonymous",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                    fontSize: 14.0))
+                          ]),
+                    ),
             ]),
       ),
     );
