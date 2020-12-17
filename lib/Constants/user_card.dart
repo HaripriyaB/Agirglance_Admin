@@ -126,6 +126,26 @@ class _UserCardState extends State<UserCard> {
                               color: Colors.black,
                               fontSize: 14.0))
                     ])),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    RaisedButton(
+                      color: Colors.greenAccent,
+                      onPressed: () => print("Tapped"),
+                      child: Text("Make Admin"),
+                    ),
+                    RaisedButton(
+                      color: Colors.greenAccent,
+                      onPressed: () => print("Tapped"),
+                      child: Text("Make Admin"),
+                    ),
+                    RaisedButton(
+                      color: Colors.greenAccent,
+                      onPressed: () => print("Tapped"),
+                      child: Text("Make Admin"),
+                    )
+                  ],
+                )
               ],
             ),
           ),
