@@ -223,6 +223,7 @@ class _JobDetailsState extends State<JobDetails> {
               height: deviceHeight / 10,
             ),
             Container(
+              width: deviceWidth / 3,
               padding: EdgeInsets.all(20.0),
               child: RaisedButton(
                 splashColor: Colors.yellow,
@@ -250,6 +251,7 @@ class _JobDetailsState extends State<JobDetails> {
             Visibility(
               visible: showUploadButton,
               child: Container(
+                width: deviceWidth / 3,
                 padding: EdgeInsets.all(20.0),
                 child: RaisedButton(
                   splashColor: Colors.yellow,
