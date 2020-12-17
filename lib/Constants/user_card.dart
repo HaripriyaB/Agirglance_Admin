@@ -161,7 +161,14 @@ class _UserCardState extends State<UserCard> {
                   ),
                   RaisedButton(
                     color: Colors.red,
-                    onPressed: () => print("Tapped"),
+                    onPressed: () async {
+                      await FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(widget.uid)
+                          .update({
+                        'isBanned': true,
+                      });
+                    },
                     child: Text(
                       "Ban User",
                       style: TextStyle(color: Colors.white),
