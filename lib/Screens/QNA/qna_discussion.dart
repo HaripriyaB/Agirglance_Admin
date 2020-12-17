@@ -32,7 +32,7 @@ class _DiscussionState extends State<Discussion> {
           .collection("comments")
           .add({
         "content": myController.text,
-        "postedBy": FirebaseAuth.instance.currentUser.displayName,
+        "postedBy": 'Admin',
         "timeOfComment": DateTime.now(),
       });
       myController.text = "";
@@ -101,7 +101,7 @@ class _DiscussionState extends State<Discussion> {
         child: Row(
           children: [
             Container(
-              width: deviceWidth / 1.5,
+              width: deviceWidth / 1.2,
               child: TextField(
                 controller: myController,
                 decoration: InputDecoration(

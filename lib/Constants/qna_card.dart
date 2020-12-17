@@ -2,12 +2,12 @@ import 'package:agriglance_admin/Screens/QNA/qna_discussion.dart';
 import 'package:flutter/material.dart';
 
 class QnaCard extends StatefulWidget {
-  String category;
-  String question;
-  String description;
-  String postedBy;
-  int index;
-  String qid;
+  final String category;
+  final String question;
+  final String description;
+  final String postedBy;
+  final int index;
+  final String qid;
   QnaCard(
       {this.category,
       this.description,
@@ -58,7 +58,7 @@ class _QnaCardState extends State<QnaCard> {
                               question: widget.question,
                               postedBy: widget.postedBy,
                               description: widget.description,
-                              qid:widget.qid,
+                              qid: widget.qid,
                             ))),
                 color: Colors.orangeAccent.shade100,
                 child: Text("Reply"),

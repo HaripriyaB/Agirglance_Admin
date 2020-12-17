@@ -11,6 +11,7 @@ class QNAHome extends StatefulWidget {
 
 class _QNAHomeState extends State<QNAHome> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,19 +22,12 @@ class _QNAHomeState extends State<QNAHome> {
               .orderBy("askedOn")
               .snapshots(),
           builder: (context, snapshot) {
-            print(snapshot.error);
-            print(snapshot.connectionState);
-            print(snapshot.data);
             return (!snapshot.hasData)
-                ? Text("Loading")
+                ? Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot q = snapshot.data.documents[index];
-                      print(q['categoryType']);
-                      print(q['question']);
-                      print(q['questionDesc']);
-                      print(q['postedByName']);
                       return QnaCard(
                         category: q['categoryType'],
                         question: q['question'],

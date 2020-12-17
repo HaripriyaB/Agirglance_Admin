@@ -1,4 +1,8 @@
+import 'package:agriglance_admin/Constants/news_card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import 'create_news.dart';
 
 class NewsHome extends StatefulWidget {
   @override
@@ -6,10 +10,50 @@ class NewsHome extends StatefulWidget {
 }
 
 class _NewsHomeState extends State<NewsHome> {
+  String _newsPostedBy = "";
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          size: 30.0,
+        ),
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CreateNews())),
+      ),
+      appBar: AppBar(title: Text("News"), centerTitle: true),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("News")
+            .orderBy("isApprovedByAdmin", descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.amber,
+              ),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data.docs.length,
+            itemBuilder: (context, index) {
+              DocumentSnapshot news = snapshot.data.docs[index];
+              _newsPostedBy = news['uname'] != "" ? news['uname'] : "Anonymous";
+              return NewsCard(
+                  approved: news['isApprovedByAdmin'],
+                  newsTitle: news['title'],
+                  newsDescription: news['description'],
+                  newsFile: news['fileUrl'],
+                  newsLink: news['newsLink'],
+                  newsDate: news['postedAt'],
+                  newsPostedBy: _newsPostedBy);
+            },
+          );
+        },
+      ),
     );
   }
 }

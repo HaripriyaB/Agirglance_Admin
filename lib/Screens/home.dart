@@ -9,79 +9,99 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   int screen = 0;
+  TabController _tabController;
+
+  @override
+  void initState() {
+    _tabController = new TabController(length: 4, vsync: this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Admin Panel",
-            style: TextStyle(fontSize: 30.0),
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    screen = 0;
-                  });
-                },
-                child: Text(
-                  "Test",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+            title: Text(
+              "Agriglance Admin Panel",
+              style: TextStyle(fontSize: 30.0),
+            ),
+            centerTitle: true,
+            // actions: [
+            //   Padding(
+            //     padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           screen = 0;
+            //         });
+            //       },
+            //       child: Text(
+            //         "Test",
+            //         style: TextStyle(fontWeight: FontWeight.bold),
+            //       ),
+            //     ),
+            //   ),
+            //   Padding(
+            //     padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           screen = 1;
+            //         });
+            //       },
+            //       child: Text("Material",
+            //           style: TextStyle(fontWeight: FontWeight.bold)),
+            //     ),
+            //   ),
+            //   Padding(
+            //     padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           screen = 2;
+            //         });
+            //       },
+            //       child: Text("QNA",
+            //           style: TextStyle(fontWeight: FontWeight.bold)),
+            //     ),
+            //   ),
+            //   Padding(
+            //     padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         setState(() {
+            //           screen = 3;
+            //         });
+            //       },
+            //       child: Text("Jobs",
+            //           style: TextStyle(fontWeight: FontWeight.bold)),
+            //     ),
+            //   )
+            // ],
+            bottom: TabBar(
+              controller: _tabController,
+              onTap: (index) {},
+              tabs: [
+                Tab(
+                  text: "Test",
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    screen = 1;
-                  });
-                },
-                child: Text("Material",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    screen = 2;
-                  });
-                },
-                child:
-                    Text("QNA", style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 18.0, right: deviceWidth / 18),
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    screen = 3;
-                  });
-                },
-                child:
-                    Text("Jobs", style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            )
-          ],
-        ),
-        body: (screen == 0)
-            ? TestHome()
-            : (screen == 1)
-                ? MaterialHome()
-                : (screen == 2)
-                    ? QNAHome()
-                    : (screen == 3)
-                        ? JobHome()
-                        : null);
+                Tab(
+                  text: "Material",
+                ),
+                Tab(text: "QNA"),
+                Tab(
+                  text: "Jobs",
+                )
+              ],
+            )),
+        body: TabBarView(controller: _tabController, children: [
+          TestHome(),
+          MaterialHome(),
+          QNAHome(),
+          JobHome(),
+        ]),);
   }
 }

@@ -25,7 +25,11 @@ class _CommentCardState extends State<CommentCard> {
                 style: TextStyle(fontSize: 17.0),
               ),
               (widget.postedBy != null && widget.postedBy != "")
-                  ? Text("- ${widget.postedBy}")
+                  ? Text(
+                      "- ${widget.postedBy}",
+                      style: TextStyle(
+                          fontSize: 10.0, fontWeight: FontWeight.bold),
+                    )
                   : Text(
                       "- Anonymous",
                       style: TextStyle(
