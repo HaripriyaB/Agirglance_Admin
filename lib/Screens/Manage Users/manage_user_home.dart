@@ -21,15 +21,23 @@ class _ManageUserState extends State<ManageUser> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot user = snapshot.data.documents[index];
-
+                    bool admin = user.data().containsKey('isAdmin')
+                        ? user['isAdmin']
+                        : false;
+                    bool banned = user.data().containsKey('isBanned')
+                        ? user['isBanned']
+                        : false;
                     return UserCard(
-                        dob: user['dob'],
-                        email: user['email'],
-                        name: user['fullName'],
-                        qualification: user['qualification'],
-                        university: user['university'],
-                        points: user['points'],
-                        uid: user['id']);
+                      dob: user['dob'],
+                      email: user['email'],
+                      name: user['fullName'],
+                      qualification: user['qualification'],
+                      university: user['university'],
+                      points: user['points'],
+                      uid: user['id'],
+                      isAdmin: admin,
+                      isBanned: banned,
+                    );
                   },
                 );
         },
