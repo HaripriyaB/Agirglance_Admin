@@ -176,7 +176,14 @@ class _UserCardState extends State<UserCard> {
                   ),
                   RaisedButton(
                     color: Colors.blue,
-                    onPressed: () => print("Tapped"),
+                    onPressed: () async {
+                      await FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(widget.uid)
+                          .update({
+                        'points': 0,
+                      });
+                    },
                     child: Text("Reset Points",
                         style: TextStyle(color: Colors.white)),
                   )
