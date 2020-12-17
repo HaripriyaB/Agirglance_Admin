@@ -2,9 +2,12 @@ import 'package:agriglance_admin/Screens/Videos/submit_video.dart';
 import 'package:agriglance_admin/Services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flutter/foundation.dart';
 
 class VideosHome extends StatefulWidget {
   @override
@@ -12,6 +15,8 @@ class VideosHome extends StatefulWidget {
 }
 
 class _VideosHomeState extends State<VideosHome> {
+  final TextStyle linkStyle = TextStyle(color: Colors.blue, fontSize: 20.0);
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -45,66 +50,119 @@ class _VideosHomeState extends State<VideosHome> {
             itemBuilder: (context, index) {
               DocumentSnapshot videos = snapshot.data.docs[index];
               var url = videos['videoUrl'];
-
-              YoutubePlayerController _controller = YoutubePlayerController(
-                initialVideoId: YoutubePlayer.convertUrlToId(url),
-                flags: YoutubePlayerFlags(
-                    controlsVisibleAtStart: true,
-                    autoPlay: false,
-                    mute: false,
-                    disableDragSeek: false,
-                    loop: false,
-                    isLive: false,
-                    forceHD: false),
-              );
-
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: width / 1,
-                    child: YoutubePlayerBuilder(
-                      player: YoutubePlayer(
-                        controller: _controller,
-                        showVideoProgressIndicator: true,
-                        liveUIColor: Colors.redAccent,
-                        bottomActions: [
-                          FullScreenButton(
-                            color: Colors.amber[700],
-                          ),
-                          CurrentPosition(),
-                          PlaybackSpeedButton(),
-                        ],
-                      ),
-                      builder: (context, player) {
-                        return Column(
-                          children: [
-                            Text(
-                              videos['lectureTitle'],
-                              style: GoogleFonts.notoSans(
-                                  fontStyle: FontStyle.normal, fontSize: 20.0),
-                            ),
-                            player,
-                            if (!videos['isApprovedByAdmin'])
-                              RaisedButton(
-                                onPressed: () async {
-                                  await FirebaseFirestore.instance
-                                      .collection("Videos")
-                                      .doc(videos.id)
-                                      .update({
-                                    'isApprovedByAdmin': true,
-                                  });
-                                  await context
-                                      .read<AuthenticationService>()
-                                      .addPoints(videos['postedBy'], 5)
-                                      .then((value) => print(
-                                          "**********************$value****************"));
-                                },
-                                child: Text("Approve"),
-                              )
-                          ],
-                        );
-                      },
+              return Container(
+                width: MediaQuery.of(context).size.width / 2,
+                child: Card(
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      side: BorderSide(width: 2.0)),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          width: width / 1,
+                          child: (!kIsWeb)
+                              ? YoutubePlayerBuilder(
+                                  player: YoutubePlayer(
+                                    controller: YoutubePlayerController(
+                                      initialVideoId:
+                                          YoutubePlayer.convertUrlToId(url),
+                                      flags: YoutubePlayerFlags(
+                                          controlsVisibleAtStart: true,
+                                          autoPlay: false,
+                                          mute: false,
+                                          disableDragSeek: false,
+                                          loop: false,
+                                          isLive: false,
+                                          forceHD: false),
+                                    ),
+                                    showVideoProgressIndicator: true,
+                                    liveUIColor: Colors.redAccent,
+                                    bottomActions: [
+                                      FullScreenButton(
+                                        color: Colors.amber[700],
+                                      ),
+                                      CurrentPosition(),
+                                      PlaybackSpeedButton(),
+                                    ],
+                                  ),
+                                  builder: (context, player) {
+                                    return Column(
+                                      children: [
+                                        Text(
+                                          videos['lectureTitle']
+                                              .toString()
+                                              .toUpperCase(),
+                                          style: GoogleFonts.notoSans(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20.0),
+                                        ),
+                                        player,
+                                        if (!videos['isApprovedByAdmin'])
+                                          RaisedButton(
+                                            color: Colors.green,
+                                            onPressed: () async {
+                                              await FirebaseFirestore.instance
+                                                  .collection("Videos")
+                                                  .doc(videos.id)
+                                                  .update({
+                                                'isApprovedByAdmin': true,
+                                              });
+                                              await context
+                                                  .read<AuthenticationService>()
+                                                  .addPoints(
+                                                      videos['postedBy'], 5)
+                                                  .then((value) => print(
+                                                      "**********************$value****************"));
+                                            },
+                                            child: Text("Approve"),
+                                          )
+                                      ],
+                                    );
+                                  },
+                                )
+                              : Column(
+                                  children: [
+                                    Text(
+                                      videos['lectureTitle']
+                                          .toString()
+                                          .toUpperCase(),
+                                      style: GoogleFonts.notoSans(
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        _launchURL(url);
+                                      },
+                                      child: Text(
+                                        "Link to the video",
+                                        style: linkStyle,
+                                      ),
+                                    ),
+                                    if (!videos['isApprovedByAdmin'])
+                                      RaisedButton(
+                                        color: Colors.green,
+                                        onPressed: () async {
+                                          await FirebaseFirestore.instance
+                                              .collection("Videos")
+                                              .doc(videos.id)
+                                              .update({
+                                            'isApprovedByAdmin': true,
+                                          });
+                                          await context
+                                              .read<AuthenticationService>()
+                                              .addPoints(videos['postedBy'], 5)
+                                              .then((value) => print(
+                                                  "**********************$value****************"));
+                                        },
+                                        child: Text("Approve"),
+                                      )
+                                  ],
+                                )),
                     ),
                   ),
                 ),
@@ -115,4 +173,8 @@ class _VideosHomeState extends State<VideosHome> {
       ),
     );
   }
+
+  void _launchURL(url) async => await canLaunch(url)
+      ? await launch(url)
+      : Fluttertoast.showToast(msg: 'Could not launch $url');
 }
