@@ -1,4 +1,5 @@
 import 'package:agriglance_admin/Screens/Jobs/job_home.dart';
+import 'package:agriglance_admin/Screens/Manage%20Users/manage_user_home.dart';
 import 'package:agriglance_admin/Screens/Material/material_home.dart';
 import 'package:agriglance_admin/Screens/QNA/qna_home.dart';
 import 'package:agriglance_admin/Screens/Test/test_home.dart';
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
 
   @override
   void initState() {
-    _tabController = new TabController(length: 4, vsync: this);
+    _tabController = new TabController(length: 5, vsync: this);
     super.initState();
   }
 
@@ -94,7 +95,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
                 Tab(text: "QNA"),
                 Tab(
                   text: "Jobs",
-                )
+                ),
+                Tab(text:"Manage Users")
               ],
             )),
         body: TabBarView(controller: _tabController, children: [
@@ -102,6 +104,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
           MaterialHome(),
           QNAHome(),
           JobHome(),
+          ManageUser()
         ]),);
   }
 }
