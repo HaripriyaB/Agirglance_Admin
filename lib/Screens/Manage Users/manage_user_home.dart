@@ -21,7 +21,16 @@ class _ManageUserState extends State<ManageUser> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot user = snapshot.data.documents[index];
-                    return UserCard();
+                    
+                      return UserCard(
+                          dob: user['dob'],
+                          email: user['email'],
+                          name: user['fullName'],
+                          qualification: user['qualification'],
+                          university: user['university'],
+                          points: user['points'],
+                          uid: user['id']);
+                    
                   },
                 );
         },
