@@ -113,7 +113,24 @@ class _JobCardState extends State<JobCard> {
                                   "**********************$value****************"));
                         },
                         child: Text("Approve"),
-                      )
+                      ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                RaisedButton(
+                  color: Colors.red,
+                  onPressed: () async {
+                    await FirebaseFirestore.instance
+                        .collection("jobs")
+                        .doc(widget.jobId)
+                        .delete();
+                  },
+                  child: Text(
+                    "Delete",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w400),
+                  ),
+                )
               ],
             ),
           ),

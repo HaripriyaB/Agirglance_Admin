@@ -99,7 +99,7 @@ class _PollCardState extends State<PollCard> {
                               : "Waiting for approval"),
                           style: TextStyle(fontSize: 8.0),
                         ),
-                        if(!widget.approved)
+                        if (!widget.approved)
                           RaisedButton(
                             onPressed: () async {
                               await FirebaseFirestore.instance
@@ -111,10 +111,29 @@ class _PollCardState extends State<PollCard> {
                               await context
                                   .read<AuthenticationService>()
                                   .addPoints(widget.postedBy, 5)
-                                  .then((value) => print("**********************$value****************"));
+                                  .then((value) => print(
+                                      "**********************$value****************"));
                             },
                             child: Text("Approve"),
-                          )
+                          ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        RaisedButton(
+                          color: Colors.red,
+                          onPressed: () async {
+                            await FirebaseFirestore.instance
+                                .collection("polls")
+                                .doc(widget.pollID)
+                                .delete();
+                          },
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
                       ],
                     )
                   ],

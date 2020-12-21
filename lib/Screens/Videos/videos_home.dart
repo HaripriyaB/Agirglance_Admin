@@ -118,7 +118,22 @@ class _VideosHomeState extends State<VideosHome> {
                                                       "**********************$value****************"));
                                             },
                                             child: Text("Approve"),
-                                          )
+                                          ),
+                                        RaisedButton(
+                                          color: Colors.red,
+                                          onPressed: () async {
+                                            await FirebaseFirestore.instance
+                                                .collection("Videos")
+                                                .doc(videos.id)
+                                                .delete();
+                                          },
+                                          child: Text(
+                                            "Delete",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        )
                                       ],
                                     );
                                   },
@@ -160,7 +175,22 @@ class _VideosHomeState extends State<VideosHome> {
                                                   "**********************$value****************"));
                                         },
                                         child: Text("Approve"),
-                                      )
+                                      ),
+                                    RaisedButton(
+                                      color: Colors.red,
+                                      onPressed: () async {
+                                        await FirebaseFirestore.instance
+                                            .collection("Videos")
+                                            .doc(videos.id)
+                                            .delete();
+                                      },
+                                      child: Text(
+                                        "Delete",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    )
                                   ],
                                 )),
                     ),

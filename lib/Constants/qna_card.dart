@@ -1,4 +1,5 @@
 import 'package:agriglance_admin/Screens/QNA/qna_discussion.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class QnaCard extends StatefulWidget {
@@ -49,20 +50,38 @@ class _QnaCardState extends State<QnaCard> {
                       "Posted By : Anonymous",
                       style: TextStyle(fontSize: 16.0),
                     ),
-              Center(
-                  child: RaisedButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Discussion(
-                              question: widget.question,
-                              postedBy: widget.postedBy,
-                              description: widget.description,
-                              qid: widget.qid,
-                            ))),
-                color: Colors.orangeAccent.shade100,
-                child: Text("Reply"),
-              ))
+              Row(
+                children: [
+                  Center(
+                      child: RaisedButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Discussion(
+                                  question: widget.question,
+                                  postedBy: widget.postedBy,
+                                  description: widget.description,
+                                  qid: widget.qid,
+                                ))),
+                    color: Colors.orangeAccent.shade100,
+                    child: Text("Reply"),
+                  )),
+                  RaisedButton(
+                  color: Colors.red,
+                  onPressed: () async {
+                    await FirebaseFirestore.instance
+                        .collection("qna")
+                        .doc(widget.qid)
+                        .delete();
+                  },
+                  child: Text(
+                    "Delete",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w400),
+                  ),
+                )
+                ],
+              )
             ],
           ),
         ),

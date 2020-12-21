@@ -110,7 +110,22 @@ class _StudyMaterialCardState extends State<StudyMaterialCard> {
                                 "**********************$value****************"));
                       },
                       child: Text("Approve"),
-                    )
+                    ),
+                  SizedBox(height: 5.0),
+                  RaisedButton(
+                    color: Colors.red,
+                    onPressed: () async {
+                      await FirebaseFirestore.instance
+                          .collection("study_materials")
+                          .doc(widget.id)
+                          .delete();
+                    },
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w400),
+                    ),
+                  )
                 ],
               ),
             ],
