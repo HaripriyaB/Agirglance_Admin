@@ -34,7 +34,8 @@ class _CommentCardState extends State<CommentCard> {
                       "- Anonymous",
                       style: TextStyle(
                           fontSize: 10.0, fontWeight: FontWeight.bold),
-                    )
+                    ),
+                    
             ],
           ),
         ),
