@@ -138,6 +138,21 @@ class NewsCard extends StatelessWidget {
                                     fontSize: 14.0))
                           ]),
                     ),
+              SizedBox(height: 5.0),
+              RaisedButton(
+                color: Colors.red,
+                onPressed: () async {
+                  await FirebaseFirestore.instance
+                      .collection("News")
+                      .doc(newsId)
+                      .delete();
+                },
+                child: Text(
+                  "Delete",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w400),
+                ),
+              )
             ]),
       ),
     );
