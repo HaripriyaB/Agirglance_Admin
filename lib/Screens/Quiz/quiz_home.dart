@@ -45,7 +45,6 @@ class _QuizHomeState extends State<QuizHome> {
                     child: StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection("QuizTestName")
-                          .orderBy("isApprovedByAdmin", descending: true)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
@@ -55,7 +54,7 @@ class _QuizHomeState extends State<QuizHome> {
                         List<QuizCard> testsWidgets = [];
                         for (var test in testNames) {
                           final quizName = test.get('quizName').toString();
-                          final uuid = test.get('uid').toString();
+                          final uuid = test.get('uid');
                           final isApproved = test.get('isApprovedByAdmin');
 
                           final testWidget = QuizCard(

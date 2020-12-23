@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:universal_html/html.dart' as html;
 
 class AddStudyMaterial extends StatefulWidget {
-  String uid;
-  String uName;
-
-  AddStudyMaterial({this.uid, this.uName});
+  String uid = FirebaseAuth.instance.currentUser.uid;
 
   @override
   _AddStudyMaterialState createState() => _AddStudyMaterialState();
@@ -64,7 +62,7 @@ class _AddStudyMaterialState extends State<AddStudyMaterial> {
       'fileName': fileName,
       'subject': _subject,
       'postedBy': widget.uid,
-      'postedByName': widget.uName == null ? "" : widget.uName
+      'postedByName': "Admin"
     });
   }
 

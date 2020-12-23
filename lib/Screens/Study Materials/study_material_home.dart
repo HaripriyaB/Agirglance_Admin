@@ -30,9 +30,7 @@ class _StudyMaterialsHomeState extends State<StudyMaterialsHome> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AddStudyMaterial(
-                      uid: auth.currentUser.uid,
-                      uName: auth.currentUser.displayName)));
+                  builder: (context) => AddStudyMaterial()));
         },
         child: Icon(Icons.add),
       ),
@@ -40,7 +38,6 @@ class _StudyMaterialsHomeState extends State<StudyMaterialsHome> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("study_materials")
-              .orderBy("isApprovedByAdmin", descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             return !snapshot.hasData

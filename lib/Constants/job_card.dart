@@ -106,7 +106,7 @@ class _JobCardState extends State<JobCard> {
                               .update({
                             'isApprovedByAdmin': true,
                           });
-                          context
+                          await context
                               .read<AuthenticationService>()
                               .addPoints(widget.postedBy, 5)
                               .then((value) => print(

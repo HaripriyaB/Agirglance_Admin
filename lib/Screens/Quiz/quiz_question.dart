@@ -15,9 +15,6 @@ class QuizQuestions extends StatefulWidget {
 class _QuizQuestionsState extends State<QuizQuestions> {
   int numOfQuestions = 0;
   List<String> _options = [];
-  var _uid = FirebaseAuth.instance.currentUser != null
-      ? FirebaseAuth.instance.currentUser.uid
-      : "";
 
   String _correct = "";
   String _incorrect = "";
@@ -33,9 +30,7 @@ class _QuizQuestionsState extends State<QuizQuestions> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getNumberQuestions();
-
     super.initState();
   }
 

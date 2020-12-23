@@ -48,7 +48,7 @@ class _UserCardState extends State<UserCard> {
             ),
             Row(
               children: [
-                if (widget.isAdmin)
+                if (widget.isAdmin!=null && widget.isAdmin==true)
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.green,
@@ -68,7 +68,7 @@ class _UserCardState extends State<UserCard> {
                 SizedBox(
                   width: 10.0,
                 ),
-                if (widget.isBanned)
+                if (widget.isBanned!=null && widget.isBanned==true)
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.red,
@@ -201,7 +201,7 @@ class _UserCardState extends State<UserCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    if (!widget.isAdmin)
+                    if (!widget.isAdmin || widget.isAdmin==null)
                       RaisedButton(
                         color: Colors.green,
                         onPressed: () async {
@@ -218,7 +218,7 @@ class _UserCardState extends State<UserCard> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    if (widget.isAdmin)
+                    if (widget.isAdmin!=null && widget.isAdmin==true)
                       RaisedButton(
                         color: Colors.yellowAccent,
                         onPressed: () async {
@@ -236,7 +236,7 @@ class _UserCardState extends State<UserCard> {
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
-                    if (!widget.isBanned)
+                    if (!widget.isBanned || widget.isBanned==null)
                       RaisedButton(
                         color: Colors.red,
                         onPressed: () async {
@@ -253,7 +253,7 @@ class _UserCardState extends State<UserCard> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    if (widget.isBanned)
+                    if (widget.isBanned!=null && widget.isBanned==true)
                       RaisedButton(
                         color: Colors.deepOrangeAccent,
                         onPressed: () async {
@@ -278,10 +278,10 @@ class _UserCardState extends State<UserCard> {
                               .collection("users")
                               .doc(widget.uid)
                               .update({
-                            'points': 0,
+                            'points': 5,
                           });
                           showToastMessage(
-                              widget.name + " points are set to 0 now");
+                              widget.name + " points are set to 5 now");
                         },
                         child: Text("Reset Points",
                             style: TextStyle(color: Colors.white)),

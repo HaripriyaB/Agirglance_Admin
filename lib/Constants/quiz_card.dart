@@ -2,12 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:agriglance_admin/Services/authentication_service.dart';
 import '../Screens/Quiz/quiz_question.dart';
+import 'package:provider/provider.dart';
 
 class QuizCard extends StatefulWidget {
   final String quizName;
   final String uid;
   final bool isApproved;
+
   QuizCard({this.quizName, this.uid, this.isApproved});
+
   @override
   _QuizCardState createState() => _QuizCardState();
 }
@@ -21,7 +24,12 @@ class _QuizCardState extends State<QuizCard> {
       padding: EdgeInsets.all(10.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,MaterialPageRoute(builder:(context)=>QuizQuestions(quizName: widget.quizName,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => QuizQuestions(
+                        quizName: widget.quizName,
+                      )));
         },
         child: Card(
           shape: RoundedRectangleBorder(
@@ -34,18 +42,23 @@ class _QuizCardState extends State<QuizCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("${widget.quizName}"),
-                if(!widget.isApproved)
-                    RaisedButton(
-                        color: Colors.blueAccent,
-                        child: Text("Approve"),
-                        onPressed: () async {
-                          await FirebaseFirestore.instance
-                              .collection("QuizTestName")
-                              .doc(widget.quizName)
-                              .update({
-                            "isApprovedByAdmin": true,
-                          });
-                        }),
+                if (!widget.isApproved)
+                  RaisedButton(
+                      color: Colors.blueAccent,
+                      child: Text("Approve"),
+                      onPressed: () async {
+                        await FirebaseFirestore.instance
+                            .collection("QuizTestName")
+                            .doc(widget.quizName)
+                            .update({
+                          "isApprovedByAdmin": true,
+                        });
+                        await context
+                            .read<AuthenticationService>()
+                            .addPoints(widget.uid, 5)
+                            .then((value) => print(
+                                "**********************$value****************"));
+                      }),
                 SizedBox(height: 5.0),
                 RaisedButton(
                     color: Colors.red,
