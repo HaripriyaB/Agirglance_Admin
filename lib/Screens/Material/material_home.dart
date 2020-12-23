@@ -1,5 +1,6 @@
 import 'package:agriglance_admin/Screens/News/news_home.dart';
 import 'package:agriglance_admin/Screens/Polls/poll_home.dart';
+import 'package:agriglance_admin/Screens/Quiz/quiz_home.dart';
 import 'package:agriglance_admin/Screens/Study%20Materials/study_material_home.dart';
 import 'package:agriglance_admin/Screens/Videos/videos_home.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,11 @@ class MaterialHome extends StatelessWidget {
               {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => newScreen));
+                break;
+              }
+            case "Quiz":
+              {
+                Navigator.push(context,MaterialPageRoute(builder:(context)=>newScreen));
                 break;
               }
 
@@ -88,7 +94,8 @@ class MaterialHome extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [categoryButton("Polls", context, PollHome())],
+            children: [categoryButton("Polls", context, PollHome()),
+            categoryButton("Quiz", context, QuizHome())],
           )
         ],
       ),
