@@ -1,66 +1,157 @@
+import 'package:agriglance_admin/Screens/Documents/documents_home.dart';
+import 'package:agriglance_admin/Screens/Images/images_home.dart';
 import 'package:agriglance_admin/Screens/News/news_home.dart';
 import 'package:agriglance_admin/Screens/Polls/poll_home.dart';
+import 'package:agriglance_admin/Screens/QuestionPaper/question_papers_home.dart';
 import 'package:agriglance_admin/Screens/Quiz/quiz_home.dart';
 import 'package:agriglance_admin/Screens/Study%20Materials/study_material_home.dart';
+import 'package:agriglance_admin/Screens/Thesis/thesis_home.dart';
 import 'package:agriglance_admin/Screens/Videos/videos_home.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MaterialHome extends StatelessWidget {
+  TextStyle style = TextStyle(
+    fontSize: 20.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+    fontFamily: 'Times',
+  );
+
   Widget categoryButton(
       String category, BuildContext context, Widget newScreen) {
-    return ButtonTheme(
-      minWidth: MediaQuery.of(context).size.width * 0.4,
-      height: MediaQuery.of(context).size.width * 0.09,
-      child: OutlineButton(
-        onPressed: () {
-          switch (category) {
-            case "Study Materials":
-              {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => newScreen));
-                break;
-              }
-            case "Videos":
-              {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => newScreen));
-                break;
-              }
-            case "News and Current Affairs":
-              {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => newScreen));
-                break;
-              }
-            case "Polls":
-              {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => newScreen));
-                break;
-              }
-            case "Quiz":
-              {
-                Navigator.push(context,MaterialPageRoute(builder:(context)=>newScreen));
-                break;
-              }
+    return Container(
+        width: 700.0,
+        height: 100.0,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.blue[900],
+                Colors.blue,
+                Colors.red,
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 25.0, // soften the shadow
+                spreadRadius: 5.0, //extend the shadow
+                offset: Offset(
+                  15.0,
+                  15.0,
+                ),
+              )
+            ],
+            border: Border.all(color: Colors.white)),
+        child: MaterialButton(
+          splashColor: Colors.grey,
+          hoverColor: Colors.amber,
 
-            default:
-              {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text("Not implemented yet"),
-                  duration: Duration(seconds: 1),
-                ));
-              }
-          }
-        },
-        child: Text(
-          category,
-          style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w400),
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        borderSide: BorderSide(color: Colors.blue, width: 10.0),
-      ),
-    );
+          onPressed: () {
+            switch (category) {
+              case "Study Materials":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "Videos":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "News and Current Affairs":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "Polls":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "Quiz":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "Images":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "Question Papers":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "Documents":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+              case "Thesis":
+                {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => newScreen));
+                  break;
+                }
+
+              default:
+                {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text("Not implemented yet"),
+                    duration: Duration(seconds: 1),
+                  ));
+                }
+            }
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (category == "Study Materials")
+                Icon(Icons.menu_book_outlined, color: Colors.amber[100])
+              else if (category == "Videos")
+                Icon(Icons.videocam, color: Colors.amber[100])
+              else if (category == "News and Current Affairs")
+                Icon(Icons.trending_up, color: Colors.amber[100])
+              else if (category == "Polls")
+                Icon(Icons.poll, color: Colors.amber[100])
+              else if (category == "Quiz")
+                Icon(Icons.lightbulb, color: Colors.amber[100])
+              else if (category == "Question Papers")
+                FaIcon(FontAwesomeIcons.question, color: Colors.amber[100])
+              else if (category == "Documents")
+                FaIcon(FontAwesomeIcons.solidFile, color: Colors.amber[100])
+              else if (category == "Thesis")
+                FaIcon(FontAwesomeIcons.solidNewspaper,
+                    color: Colors.amber[100])
+              else if (category == "Images")
+                Icon(Icons.image, color: Colors.amber[100]),
+              SizedBox(
+                width: 20.0,
+              ),
+              Text(
+                category,
+                style: style,
+              ),
+              SizedBox(
+                width: 20.0,
+              ),
+              Icon(Icons.arrow_forward, size: 20.0, color: Color(0xFF3EC3C1))
+            ],
+          ),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.blue, width: 2.0),
+          ),
+        ));
   }
 
   @override
@@ -70,33 +161,81 @@ class MaterialHome extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(
-            height: deviceHeight / 15,
+          Container(
+            width: 700.0,
+            height: deviceHeight * 2.1,
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 25.0, // soften the shadow
+                    spreadRadius: 5.0, //extend the shadow
+                    offset: Offset(
+                      15.0,
+                      15.0,
+                    ),
+                  )
+                ],
+                color: Colors.yellow[50],
+                border: Border.all(color: Colors.white)),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    "Study Materials",
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'Times',
+                        fontSize: 25.0,
+                        color: Colors.cyan[900],
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton("Videos", context, VideosHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton("Images", context, ImageHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton(
+                    "Question Papers", context, QuestionPapersHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton("Documents", context, DocumentsHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton("Thesis", context, ThesisHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton(
+                    "Study Materials", context, StudyMaterialsHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton("News and Current Affairs", context, NewsHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton("Polls", context, PollHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+                categoryButton("Quiz", context, QuizHome()),
+                SizedBox(
+                  height: deviceHeight / 50,
+                ),
+              ],
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              categoryButton("Videos", context, VideosHome()),
-              categoryButton("Study Materials", context, StudyMaterialsHome()),
-            ],
-          ),
-          SizedBox(
-            height: deviceHeight / 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              categoryButton("News and Current Affairs", context, NewsHome()),
-            ],
-          ),
-          SizedBox(
-            height: deviceHeight / 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [categoryButton("Polls", context, PollHome()),
-            categoryButton("Quiz", context, QuizHome())],
-          )
         ],
       ),
     );

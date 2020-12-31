@@ -1,9 +1,11 @@
+import 'package:agriglance_admin/Services/authentication_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:core';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsCard extends StatelessWidget {
@@ -61,6 +63,11 @@ class NewsCard extends StatelessWidget {
                             .update({
                           'isApprovedByAdmin': true,
                         });
+                        await context
+                            .read<AuthenticationService>()
+                            .addPoints(newsPostedBy, 5)
+                            .then((value) => print(
+                            "**********************$value****************"));
                       },
                       child: Text("Approve"),
                     ),
