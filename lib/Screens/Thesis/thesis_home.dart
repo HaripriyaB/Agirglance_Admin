@@ -123,7 +123,7 @@ class _ThesisHomeState extends State<ThesisHome> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  _shareInWeb(url);
+                  _shareInWeb(filename, url);
                 },
                 child: const Text('Share'),
               ),
@@ -132,9 +132,9 @@ class _ThesisHomeState extends State<ThesisHome> {
         });
   }
 
-  void _shareInWeb(String url) {
+  void _shareInWeb(String filename, String url) {
     FlutterClipboard.copy(
-            'Download thesis paper via this link: $url \nGet more study materials and free mock test on agriglance.com ')
+            'Download thesis paper via this link: FileName : $filename $url \nGet more study materials and free mock test on agriglance.com ')
         .then((value) {
       Fluttertoast.showToast(
           msg: "Copied To Clipboard!",

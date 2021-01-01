@@ -120,7 +120,7 @@ class _ImageHomeState extends State<ImageHome> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  _shareInWeb(url);
+                  _shareInWeb(filename, url);
                 },
                 child: const Text('Share'),
               ),
@@ -129,9 +129,9 @@ class _ImageHomeState extends State<ImageHome> {
         });
   }
 
-  void _shareInWeb(String url) {
+  void _shareInWeb(String filename, String url) {
     FlutterClipboard.copy(
-            'Download image via this link: $url \nGet more study materials and free mock test on agriglance.com ')
+            'Download image via this link: FileName : $filename $url \nGet more study materials and free mock test on agriglance.com ')
         .then((value) {
       Fluttertoast.showToast(
           msg: "Copied To Clipboard!",
