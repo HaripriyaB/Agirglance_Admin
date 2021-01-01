@@ -72,7 +72,7 @@ class _ThesisHomeState extends State<ThesisHome> {
                         return GestureDetector(
                           onTap: () async {
                             await _asyncSimpleDialog(context,
-                                thesis['paperUrl'], thesis['fileName']);
+                                thesis['paperUrl'], thesis['fileName'],thesis['title']);
                           },
                           child: ThesisCard(
                             title: thesis['title'],
@@ -103,7 +103,7 @@ class _ThesisHomeState extends State<ThesisHome> {
       : Fluttertoast.showToast(msg: "Could not launch $url");
 
   Future<options> _asyncSimpleDialog(
-      BuildContext context, String url, String filename) async {
+      BuildContext context, String url, String filename, String title) async {
     return await showDialog<options>(
         context: context,
         barrierDismissible: true,
@@ -123,7 +123,7 @@ class _ThesisHomeState extends State<ThesisHome> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  _shareInWeb(filename, url);
+                  _shareInWeb(title, url);
                 },
                 child: const Text('Share'),
               ),

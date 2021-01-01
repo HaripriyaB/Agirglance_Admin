@@ -72,7 +72,7 @@ class _ImageHomeState extends State<ImageHome> {
                         return GestureDetector(
                           onTap: () async {
                             await _asyncSimpleDialog(context,
-                                images['imageUrl'], images['fileName']);
+                                images['imageUrl'], images['fileName'],images['title']);
                           },
                           child: ImageCard(
                             title: images['title'],
@@ -100,7 +100,7 @@ class _ImageHomeState extends State<ImageHome> {
       : Fluttertoast.showToast(msg: "Could not launch $url");
 
   Future<options> _asyncSimpleDialog(
-      BuildContext context, String url, String filename) async {
+      BuildContext context, String url, String filename,String title) async {
     return await showDialog<options>(
         context: context,
         barrierDismissible: true,
@@ -120,7 +120,7 @@ class _ImageHomeState extends State<ImageHome> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  _shareInWeb(filename, url);
+                  _shareInWeb(title, url);
                 },
                 child: const Text('Share'),
               ),

@@ -76,7 +76,7 @@ class _QuestionPapersHomeState extends State<QuestionPapersHome> {
                         return GestureDetector(
                           onTap: () async {
                             await _asyncSimpleDialog(context,
-                                qpaper['paperUrl'], qpaper['fileName']);
+                                qpaper['paperUrl'], qpaper['fileName'],qpaper['subject']);
                           },
                           child: QuestionPaperCard(
                             subject: qpaper['subject'],
@@ -105,7 +105,7 @@ class _QuestionPapersHomeState extends State<QuestionPapersHome> {
       : Fluttertoast.showToast(msg: "Could not launch $url");
 
   Future<options> _asyncSimpleDialog(
-      BuildContext context, String url, String filename) async {
+      BuildContext context, String url, String filename,String title) async {
     return await showDialog<options>(
         context: context,
         barrierDismissible: true,
@@ -125,7 +125,7 @@ class _QuestionPapersHomeState extends State<QuestionPapersHome> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  _shareInWeb(filename, url);
+                  _shareInWeb(title, url);
                 },
                 child: const Text('Share'),
               ),
